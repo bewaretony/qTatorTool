@@ -13,20 +13,21 @@ TatorTool::TatorTool(QWidget *parent) :
     statusListening();
     ui->statusBar->addPermanentWidget(statusLabel, 1);
 
-    for (int i = 0; i < 1000; i++) {
-        this->addDummyData();
-    }
+//    for (int i = 0; i < 1000; i++) {
+//        this->addDummyData();
+//    }
+//    lastTimestamp = 0;
+//    this->timer = new QTimer(this);
 
-    lastTimestamp = 0;
-    this->timer = new QTimer(this);
+    this->netConsole = new NetConsoleReceiver(this);
+    netConsole->start();
 
-    this->initConsoleSocket();
-
-    connect(timer, SIGNAL(timeout()), this, SLOT(addDummyData()));
-    connect(consoleSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(statusError(QAbstractSocket::SocketError)));
+    connect(netConsole, SIGNAL(line(QString)), this, SLOT(handleLine(QString)));
+    connect(netConsole, SIGNAL(error(QString)), this, SLOT(statusError(QString)));
+//    connect(timer, SIGNAL(timeout()), this, SLOT(addDummyData()));
     connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 
-    timer->start(500);
+//    timer->start(500);
 }
 
 TatorTool::~TatorTool()
@@ -34,22 +35,9 @@ TatorTool::~TatorTool()
     delete ui;
 }
 
-void TatorTool::initConsoleSocket() {
-    this->consoleSocket = new QUdpSocket(this);
-    consoleSocket->bind(QHostAddress::Any, NETCONSOLE_PORT);
-
-    connect(consoleSocket, SIGNAL(readyRead()), this, SLOT(readFromConsoleSocket()));
-}
-
-void TatorTool::readFromConsoleSocket() {
-    while (consoleSocket->hasPendingDatagrams()) {
-        QByteArray datagram;
-        datagram.resize(consoleSocket->pendingDatagramSize());
-
-        consoleSocket->readDatagram(datagram.data(), datagram.size());
-
-//        ui->console->append(QString(datagram));
-    }
+void TatorTool::handleLine(QString str) {
+    ui->logTable->handleLine(str);
+    ui->console->append(str);
 }
 
 void TatorTool::addDummyData() {
@@ -71,6 +59,6 @@ void TatorTool::statusListening() {
     this->statusLabel->setText(tr("Listening..."));
 }
 
-void TatorTool::statusError(QAbstractSocket::SocketError) {
-    this->statusLabel->setText(tr("Error: %1").arg(this->consoleSocket->errorString()));
+void TatorTool::statusError(QString error) {
+    this->statusLabel->setText(tr("Error: %1").arg(error));
 }

@@ -7,7 +7,8 @@ enum class LogType {
     Warn,
     Info,
     Data,
-    Start
+    Start,
+    State
 };
 
 #endif // LOGTYPE_H

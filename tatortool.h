@@ -8,6 +8,7 @@
 #include <QLabel>
 
 #include <logtablemodel.h>
+#include <netconsolereceiver.h>
 
 namespace Ui {
 class TatorTool;
@@ -18,27 +19,23 @@ class TatorTool : public QMainWindow
     Q_OBJECT
 
 public:
-    static const uint16_t NETCONSOLE_PORT = 6666;
-
     explicit TatorTool(QWidget *parent = 0);
     ~TatorTool();
 
 private:
-    void initConsoleSocket();
-
     Ui::TatorTool *ui;
     QLabel *statusLabel;
 
-    QUdpSocket *consoleSocket;
+    NetConsoleReceiver *netConsole;
     QTimer *timer;
     double lastTimestamp;
 
 private slots:
-    void readFromConsoleSocket();
     void addDummyData();
+    void handleLine(QString str);
 
     void statusListening();
-    void statusError(QAbstractSocket::SocketError);
+    void statusError(QString error);
 
 };
 

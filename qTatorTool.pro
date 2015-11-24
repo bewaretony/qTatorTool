@@ -19,13 +19,24 @@ SOURCES += main.cpp\
         tatortool.cpp \
     logitem.cpp \
     logtablemodel.cpp \
-    logtable.cpp
+    logtable.cpp \
+    console.cpp \
+    netconsolereceiver.cpp
 
 HEADERS  += tatortool.h \
     logitem.h \
     logtype.h \
     logtablemodel.h \
-    logtable.h
+    logtable.h \
+    console.h \
+    netconsolereceiver.h
 
 FORMS    += tatortool.ui \
-    logtable.ui
+    logtable.ui \
+    console.ui
+
+DISTFILES += \
+    console_test.py
+
+RESOURCES += \
+    icon.qrc

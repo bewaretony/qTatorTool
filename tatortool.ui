@@ -6,17 +6,45 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>786</width>
+    <width>1366</width>
     <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TatorTool</string>
+   <string>qTatorTool</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icon.qrc">
+    <normaloff>:/icons/appicon.ico</normaloff>:/icons/appicon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="LogTable" name="logTable" native="true"/>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_logTable">
+       <attribute name="title">
+        <string>Log Table</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="LogTable" name="logTable" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_console">
+       <attribute name="title">
+        <string>Console</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="Console" name="console" native="true"/>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -25,13 +53,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>786</width>
-     <height>22</height>
+     <width>1366</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Fi&amp;le</string>
     </property>
     <addaction name="actionQuit"/>
    </widget>
@@ -48,7 +76,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
    <property name="shortcut">
     <string/>
@@ -68,7 +96,15 @@
    <header>logtable.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>Console</class>
+   <extends>QWidget</extends>
+   <header>console.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="icon.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -58,6 +58,8 @@ QVariant LogTableModel::data(const QModelIndex &index, int role) const
             return QColor(182, 238, 254);
         case LogType::Start:
             return QColor(153, 255, 102);
+        case LogType::State:
+            return QColor(230, 230, 230);
         default:
             return QVariant();
         }
