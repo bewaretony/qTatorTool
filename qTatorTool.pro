@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-11-15T12:21:05
-#
-#-------------------------------------------------
-
 QT              += core gui network
 
 CONFIG          += c++11
@@ -14,29 +8,30 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = qTatorTool
 TEMPLATE = app
 
+INCLUDEPATH += src
 
-SOURCES += main.cpp\
-        tatortool.cpp \
-    logitem.cpp \
-    logtablemodel.cpp \
-    logtable.cpp \
-    console.cpp \
-    netconsolereceiver.cpp
+SOURCES += src/main.cpp\
+        src/tatortool.cpp \
+    src/logitem.cpp \
+    src/logtablemodel.cpp \
+    src/logtable.cpp \
+    src/console.cpp \
+    src/netconsolereceiver.cpp
 
-HEADERS  += tatortool.h \
-    logitem.h \
-    logtype.h \
-    logtablemodel.h \
-    logtable.h \
-    console.h \
-    netconsolereceiver.h
+HEADERS  += src/tatortool.h \
+    src/logitem.h \
+    src/logtype.h \
+    src/logtablemodel.h \
+    src/logtable.h \
+    src/console.h \
+    src/netconsolereceiver.h
 
-FORMS    += tatortool.ui \
-    logtable.ui \
-    console.ui
+FORMS    += ui/tatortool.ui \
+    ui/logtable.ui \
+    ui/console.ui
 
 DISTFILES += \
     console_test.py
 
 RESOURCES += \
-    icon.qrc
+    resource/icon.qrc
