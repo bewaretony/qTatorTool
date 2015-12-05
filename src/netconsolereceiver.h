@@ -2,6 +2,7 @@
 #define NETCONSOLERECEIVER_H
 
 #include <QUdpSocket>
+#include <cstdint>
 
 class NetConsoleReceiver : public QObject
 {

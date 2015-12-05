@@ -1,7 +1,12 @@
 QT              += core gui network
 
 CONFIG          += c++11
-QMAKE_CXXFLAGS  += -Werror
+
+win32-msvc* {
+    QMAKE_CXXFLAGS += /WX
+} else {
+    QMAKE_CXXFLAGS += -Werror
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
