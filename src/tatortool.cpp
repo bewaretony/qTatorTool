@@ -43,12 +43,12 @@ void TatorTool::handleLine(QString str) {
 void TatorTool::addDummyData() {
     lastTimestamp += ((double) qrand()) / RAND_MAX;
     LogType logType = LogType::Unknown;
-    switch (qrand() % 6) {
+    switch (qrand() % 5) {
     case 0: logType = LogType::Error; break;
     case 1: logType = LogType::Warn; break;
     case 2: logType = LogType::Info; break;
-    case 3: logType = LogType::Data; break;
-    case 4: logType = LogType::Start; break;
+    case 3: logType = LogType::Debug; break;
+    case 4: logType = LogType::Trace; break;
     }
 
     this->ui->logTable->model()->append(LogItem(lastTimestamp, logType, "Robot", "Hello, World"));

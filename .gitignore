@@ -34,3 +34,6 @@ Makefile*
 *.qmlproject.user
 *.qmlproject.user.*
 *.pro.user
+
+# Binary
+qTatorTool

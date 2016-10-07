@@ -44,12 +44,10 @@ QString LogItem::logTypeToString(LogType logType) {
         return "WARN";
     case LogType::Info:
         return "INFO";
-    case LogType::Data:
-        return "DATA";
-    case LogType::Start:
-        return "START";
-    case LogType::State:
-        return "STATE";
+    case LogType::Debug:
+        return "DEBUG";
+    case LogType::Trace:
+        return "TRACE";
     default:
     case LogType::Unknown:
         return "UNKNOWN";
@@ -64,18 +62,16 @@ LogType LogItem::logTypeFromString(const QString& str) {
         return LogType::Warn;
     } else if (norm == "INFO") {
         return LogType::Info;
-    } else if (norm == "DATA") {
-        return LogType::Data;
-    } else if (norm == "START") {
-        return LogType::Start;
-    } else if (norm == "STATE") {
-        return LogType::State;
+    } else if (norm == "DEBUG") {
+        return LogType::Debug;
+    } else if (norm == "TRACE") {
+        return LogType::Trace;
     } else {
         return LogType::Unknown;
     }
 }
 
-const char* LogItem::PARSE_REGEXP_STR = "^\\s*(?<timestamp>[0-9]+(.[0-9]*)?)\\s+\\[(?<type>[a-zA-Z]+) ?\\] (?<source>.*) - (?<message>.*)$";
+const char* LogItem::PARSE_REGEXP_STR = "^(?<timestamp>[0-9:.]+) \\[(?<thread>.*)\\] (?<type>[A-Z]+) +(?<source>.*) - (?<message>.*)$";
 
 bool LogItem::fromString(const QString& str, LogItem *logItem) {
     QRegularExpression regexp(PARSE_REGEXP_STR, QRegularExpression::CaseInsensitiveOption);

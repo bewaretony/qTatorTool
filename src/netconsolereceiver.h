@@ -1,14 +1,14 @@
 #ifndef NETCONSOLERECEIVER_H
 #define NETCONSOLERECEIVER_H
 
-#include <QUdpSocket>
+#include <QTcpSocket>
 #include <cstdint>
 
 class NetConsoleReceiver : public QObject
 {
     Q_OBJECT
 public:
-    static const uint16_t NETCONSOLE_PORT = 6666;
+    static const uint16_t PORT = 2122;
 
     explicit NetConsoleReceiver(QObject *parent = 0);
 
@@ -20,7 +20,7 @@ public slots:
     void start();
 
 private:
-    QUdpSocket* socket;
+    QTcpSocket* socket;
     QByteArray buffer;
 
 private slots:

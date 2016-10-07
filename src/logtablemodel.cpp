@@ -51,15 +51,15 @@ QVariant LogTableModel::data(const QModelIndex &index, int role) const
         LogType type = logItems.at(index.row()).type();
         switch (type) {
         case LogType::Error:
-            return QColor(255, 140, 128);
+            return QColor(255, 0, 0);
         case LogType::Warn:
-            return QColor(253, 247, 111);
+            return QColor(255, 255, 0);
         case LogType::Info:
-            return QColor(182, 238, 254);
-        case LogType::Start:
-            return QColor(153, 255, 102);
-        case LogType::State:
-            return QColor(230, 230, 230);
+            return QColor(255, 255, 255);
+        case LogType::Debug:
+            return QColor(127, 127, 127);
+        case LogType::Trace:
+            return QColor(255, 127, 0);
         default:
             return QVariant();
         }

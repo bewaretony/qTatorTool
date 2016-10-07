@@ -2,30 +2,25 @@
 
 NetConsoleReceiver::NetConsoleReceiver(QObject *parent) : QObject(parent)
 {
-    this->socket = new QUdpSocket(this);
+    this->socket = new QTcpSocket(this);
 }
 
 void NetConsoleReceiver::start() {
-    socket->bind(QHostAddress::Any, NETCONSOLE_PORT);
     buffer.clear();
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readFromConsoleSocket()));
     connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
+    socket->connectToHost("localhost", PORT);
 }
 
 void NetConsoleReceiver::readFromConsoleSocket() {
-    while (socket->hasPendingDatagrams()) {
-        QByteArray datagram;
-        datagram.resize(socket->pendingDatagramSize());
-
-        socket->readDatagram(datagram.data(), datagram.size());
-        buffer.append(datagram);
+    while (socket->canReadLine()) {
+        char buf[256];
+        qint64 len = socket->readLine(buf, sizeof(buf));
+        if(len != -1) {
+            emit line(QString(buf).trimmed());
+        }
     }
-    QList<QByteArray> parts = buffer.split('\n');
-    for (int i = 0; i < parts.length() - 1; i++) {
-        emit line(QString(parts[i]));
-    }
-    buffer = parts.last();
 }
 
 void NetConsoleReceiver::onError(QAbstractSocket::SocketError) {
